@@ -24,7 +24,7 @@ public class Application {
 
         MAP.addVisitor(treasure2, 2, 3);
 
-        final Treasure treasure3 = new ExperienceTreasure(3,500);
+        final Treasure treasure3 = new ExperienceTreasure(3,5000);
 
         MAP.addVisitor(treasure3, 1,1);
 
