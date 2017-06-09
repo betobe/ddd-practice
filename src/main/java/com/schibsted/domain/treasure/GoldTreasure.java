@@ -6,8 +6,6 @@ import com.schibsted.domain.player.Player;
 
 import java.security.SecureRandom;
 import java.util.Random;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class GoldTreasure implements Treasure {
   private final int id;
@@ -24,16 +22,21 @@ public class GoldTreasure implements Treasure {
 
   @Override
   public Treasure open(Player opener) {
-    return Dice.roll( () -> {
-                opener.addGold(gold);
-                return this;
-              },
-            () -> new EmptyTreasure(id),
-            () -> {
-                opener.addGold(gold);
-                return new EmptyTreasure(id);
-            }
-    ).get();
+    Random rand = new SecureRandom();
+    int number = rand.nextInt(101);
+
+    System.out.println("number::" + number);
+
+    if (number >= 80) {
+      opener.addGold(gold);
+      return this;
+    } else if (number < 10) {
+      return new EmptyTreasure(id);
+    }
+    else {
+      opener.addGold(gold);
+      return new EmptyTreasure(id);
+    }
   }
 
 

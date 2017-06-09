@@ -4,6 +4,9 @@ import com.schibsted.domain.map.model.Position;
 import com.schibsted.domain.map.model.VisitorReference;
 import com.schibsted.domain.player.Player;
 
+import java.security.SecureRandom;
+import java.util.Random;
+
 /**
  * Created by alberto.esposito on 9/6/17.
  */
@@ -17,9 +20,23 @@ public class ExperienceTreasure implements Treasure{
   }
 
   @Override
-  public EmptyTreasure open(Player opener) {
-    opener.addExperience(experience);
-    return new EmptyTreasure(id);
+  public Treasure open(Player opener) {
+
+    Random rand = new SecureRandom();
+    int number = rand.nextInt(101);
+
+    System.out.println("number::" + number);
+
+    if (number >= 80) {
+      opener.addExperience(experience);
+      return this;
+    } else if (number < 10) {
+      return new EmptyTreasure(id);
+    }
+    else {
+      opener.addExperience(experience);
+      return new EmptyTreasure(id);
+    }
   }
 
   @Override
