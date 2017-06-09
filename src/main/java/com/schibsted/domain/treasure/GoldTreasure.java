@@ -4,6 +4,11 @@ import com.schibsted.domain.map.model.Position;
 import com.schibsted.domain.map.model.VisitorReference;
 import com.schibsted.domain.player.Player;
 
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 public class GoldTreasure implements Treasure {
   private final int id;
   private final int gold;
@@ -18,10 +23,19 @@ public class GoldTreasure implements Treasure {
   }
 
   @Override
-  public EmptyTreasure open(Player opener) {
-    opener.addGold(gold);
-    return new EmptyTreasure(id);
+  public Treasure open(Player opener) {
+    return Dice.roll( () -> {
+                opener.addGold(gold);
+                return this;
+              },
+            () -> new EmptyTreasure(id),
+            () -> {
+                opener.addGold(gold);
+                return new EmptyTreasure(id);
+            }
+    ).get();
   }
+
 
   @Override
   public VisitorReference getReference(Position position) {
