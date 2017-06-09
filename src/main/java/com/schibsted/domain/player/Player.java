@@ -44,4 +44,6 @@ public class Player {
     public void addGold(int gold) {
         this.gold += gold;
     }
+
+    public void addExperience(int experience) { this.experience += experience; }
 }

@@ -29,7 +29,7 @@ public class DrawMapView extends View {
 
     public void onRenderPlayer(Player player) {
         getWriter().printf("%s - %dG\n", player.getName(), player.getGold());
-        getWriter().printf("Level %d - %dHP\n", player.getLevel(), player.getHitPoints());
+        getWriter().printf("Level %d - %dEXP - %dHP\n", player.getLevel(), player.getExperience(), player.getHitPoints());
     }
 
     public void onRenderMap(Map map) {

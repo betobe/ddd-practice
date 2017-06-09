@@ -3,10 +3,7 @@ package com.schibsted;
 import com.schibsted.application.ApplicationService;
 import com.schibsted.domain.map.model.Map;
 import com.schibsted.domain.player.PlayerService;
-import com.schibsted.domain.treasure.GoldTreasure;
-import com.schibsted.domain.treasure.Treasure;
-import com.schibsted.domain.treasure.TreasureRepository;
-import com.schibsted.domain.treasure.TreasureService;
+import com.schibsted.domain.treasure.*;
 import com.schibsted.infrastructure.treasure.InMemoryRepository;
 import com.schibsted.presenter.menu.CreatePlayerPresenter;
 import com.schibsted.view.menu.CreatePlayerView;
@@ -27,11 +24,16 @@ public class Application {
 
         MAP.addVisitor(treasure2, 2, 3);
 
+        final Treasure treasure3 = new ExperienceTreasure(3,500);
+
+        MAP.addVisitor(treasure3, 1,1);
+
         final PlayerService playerService = new PlayerService();
         final TreasureRepository treasureRepository = new InMemoryRepository();
 
         treasureRepository.add(treasure);
         treasureRepository.add(treasure2);
+        treasureRepository.add(treasure3);
 
         final TreasureService treasureService = new TreasureService(treasureRepository);
 
