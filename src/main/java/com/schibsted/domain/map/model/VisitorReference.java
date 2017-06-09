@@ -23,6 +23,6 @@ public class VisitorReference {
 
     @Override
     public int hashCode() {
-        return id;
+        return position.hashCode();
     }
 }

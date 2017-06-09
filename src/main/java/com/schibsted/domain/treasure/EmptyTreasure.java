@@ -11,6 +11,10 @@ public class EmptyTreasure implements Treasure {
         this.id = id;
     }
 
+    public boolean hasId(int id) {
+        return this.id == id;
+    }
+
     @Override
     public EmptyTreasure open(Player opener) {
         return this;

@@ -41,7 +41,7 @@ public class ApplicationService {
 
     public Map onOpenTreasure(int treasureId) {
         Player player = playerService.getPlayer();
-        Treasure treasure = treasureService.openTreasure(player);
+        Treasure treasure = treasureService.openTreasure(treasureId, player);
         map.updateVisitor(treasure);
         return map;
     }

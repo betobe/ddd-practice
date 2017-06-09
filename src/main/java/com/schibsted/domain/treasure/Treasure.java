@@ -5,4 +5,5 @@ import com.schibsted.domain.player.Player;
 
 public interface Treasure extends Visitor {
     EmptyTreasure open(Player opener);
+    boolean hasId(int id);
 }

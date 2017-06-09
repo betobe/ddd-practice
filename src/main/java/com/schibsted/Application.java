@@ -5,7 +5,9 @@ import com.schibsted.domain.map.model.Map;
 import com.schibsted.domain.player.PlayerService;
 import com.schibsted.domain.treasure.GoldTreasure;
 import com.schibsted.domain.treasure.Treasure;
+import com.schibsted.domain.treasure.TreasureRepository;
 import com.schibsted.domain.treasure.TreasureService;
+import com.schibsted.infrastructure.treasure.InMemoryRepository;
 import com.schibsted.presenter.menu.CreatePlayerPresenter;
 import com.schibsted.view.menu.CreatePlayerView;
 
@@ -17,12 +19,22 @@ public class Application {
     public static void main(String[] args) throws IOException {
         final Reader reader = new InputStreamReader(System.in);
         final Writer writer = new PrintWriter(System.out);
-        final Treasure treasure = new GoldTreasure(0, 250);
+        final Treasure treasure = new GoldTreasure(1, 250);
 
         MAP.addVisitor(treasure, 4, 6);
 
+        final Treasure treasure2 = new GoldTreasure(2, 500);
+
+        MAP.addVisitor(treasure2, 2, 3);
+
         final PlayerService playerService = new PlayerService();
-        final TreasureService treasureService = new TreasureService(treasure);
+        final TreasureRepository treasureRepository = new InMemoryRepository();
+
+        treasureRepository.add(treasure);
+        treasureRepository.add(treasure2);
+
+        final TreasureService treasureService = new TreasureService(treasureRepository);
+
         final ApplicationService applicationService = new ApplicationService(playerService, treasureService, MAP);
 
         final CreatePlayerPresenter createPlayerPresenter = new CreatePlayerPresenter(playerService);
